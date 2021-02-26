@@ -5,7 +5,7 @@ const categoryService = require('./category.service');
 
 describe('Category service', () => {
   it('should save categories and feattures in database', async () => {
-    const mockResponse = {
+    const mockValue = {
       name: 'phones',
       description: 'phone shoes',
       itemMetadata: [
@@ -16,6 +16,21 @@ describe('Category service', () => {
         },
       ],
     };
-    jest.spyOn(axios, 'get').mockResolvedValue(mockValue);
+    const mockURL = 'https://backend-evaluation-lgsvu.ondigitalocean.app/category?name=phone';
+
+    const response = await categoryService.postCategory(['phone', 'shoe']);
+    // expect(response).toStrictEqual(mockValue);
+    const spyValue = jest.spyOn(Category, 'create').mockResolvedValue(mockValue);
+    // expect(spyValue).toHaveBeenCalledWith({
+    //   // eslint-disable-next-line max-len
+    //   name: 'phones',
+    //   description: 'phone shoes',
+    //   itemMetadata: [
+    //     {
+    //       id: 'phone_1',
+    //       name: 'iPhone 12',
+    //       description: 'Apple manufactured with amazing camera.',
+    //     }],
+    // });
   });
 });

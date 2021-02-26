@@ -2,12 +2,12 @@ const categoryService = require('../services/category.service');
 
 const createCategories = async (req, res) => {
 //   console.log(req.body);
-  const createdCategories = await categoryService.postCategory(req.body.names);
+  await categoryService.postCategory(req.body.names);
   res.status(201).json({ message: 'Added successfully' });
 };
 
 const getFeatures = async (req, res) => {
-  const features = await categoryService.getFeature();
+  const features = await categoryService.getFeature(req.params.category);
   res.status(200).json();
 };
 

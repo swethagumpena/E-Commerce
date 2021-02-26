@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-// const { Op } = require('sequelize');
+const { Op } = require('sequelize');
 const { Category } = require('../models');
 const { Item } = require('../models');
 
@@ -13,7 +13,7 @@ const postCategory = async (categoriesArray) => {
       // eslint-disable-next-line max-len
       name: category.data.name, description: category.data.description, itemMetadata: category.data.itemMetadata.map((itemMd) => JSON.stringify(itemMd)),
     });
-
+    console.log(createdCategories.id);
     const iterItem = category.data.itemMetadata.map((i) => i.id);
     iterItem.map(async (itemName) => {
       await Item.destroy({
@@ -29,8 +29,16 @@ const postCategory = async (categoriesArray) => {
   });
 };
 
-const getFeature = async () => {
-
+const getFeature = async (category) => {
+  const features = await Item.findAll({
+    where: {
+      itemName: {
+        [Op.substring]: category, // LIKE '%category%'
+      },
+    },
+    attributes: ['features'],
+  });
+  console.log(features);
 };
 
 module.exports = {
