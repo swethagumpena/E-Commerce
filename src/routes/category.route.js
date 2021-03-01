@@ -1,10 +1,11 @@
 const express = require('express');
-const { createCategories, getFeatures } = require('../handlers/category.handler');
+const { createCategories, getFeatures, getItems } = require('../handlers/category.handler');
 
 const router = express.Router();
 
 router.post('/', createCategories);
-router.get('/:category', getFeatures);
+router.get('/features/:category', getFeatures);
+router.get('/items', getItems);
 
 module.exports = {
   router,
